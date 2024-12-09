@@ -88,7 +88,8 @@
                 <th class="delete">Удалить</th>
                 <th>Имя</th>   
                 <th>Фамилия</th>
-                <th>Телефон</th>       
+                <th>Телефон</th>
+                <th class="change"></th>       
             </tr>
         `);
 
@@ -219,7 +220,15 @@
     tr.phoneLink = phoneLink;
     tdPhone.append(phoneLink);
 
-    tr.append(tdDel, tdName, tdSurname, tdPhone);
+    const tdChange = document.createElement('td');
+    tdChange.classList.add('change');
+    tdChange.insertAdjacentHTML('beforeend', `
+            <button type="button" class="btn btn-outline-info btn-sm">
+            Редактировать
+            </button>
+            `);
+
+    tr.append(tdDel, tdName, tdSurname, tdPhone, tdChange);
     return tr;
   };
 
@@ -239,9 +248,8 @@
       contact.addEventListener('mouseleave', () => {
         logo.textContent = text;
       });
-      
     });
-  }
+  };
   const init = (selectorApp, title) => {
     const app = document.querySelector(selectorApp);
     const phoneBook = renderPhoneBook(app, title);
@@ -254,7 +262,7 @@
 
     const objEvent = {
       handleEvent() {
-        formOverlay.classList.add('is-visible')
+        formOverlay.classList.add('is-visible');
       }
     };
     btnAdd.addEventListener('click', objEvent);
@@ -265,7 +273,7 @@
 
     formOverlay.addEventListener('click', () => {
       formOverlay.classList.remove('is-visible');
-    })
+    });
   };
 
   window.phoneBookInit = init;
